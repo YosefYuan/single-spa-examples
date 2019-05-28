@@ -1,5 +1,10 @@
-import {declareChildApplication, start} from 'single-spa';
-import {loadEmberApp} from 'single-spa-ember';
+import {
+    declareChildApplication,
+    start
+} from 'single-spa';
+import {
+    loadEmberApp
+} from 'single-spa-ember';
 import 'babel-polyfill';
 
 declareChildApplication('navbar', () => import('./navbar/navbar.app.js'), () => true);
@@ -18,7 +23,7 @@ declareChildApplication('ember', () => loadEmberApp("ember-app", '/build/ember-a
 start();
 
 function pathPrefix(prefix) {
-    return function(location) {
+    return function (location) {
         return location.pathname.indexOf(`${prefix}`) === 0;
     }
 }

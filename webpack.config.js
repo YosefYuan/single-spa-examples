@@ -7,7 +7,10 @@ infernoBabelConfig.plugins.push('inferno');
 
 const preactBabelConfig = getBabelConfig();
 preactBabelConfig.presets.splice(0, 1);
-preactBabelConfig.plugins.push(['transform-react-jsx', {pragma: 'h'}])
+preactBabelConfig.plugins.push(['transform-react-jsx', {
+  pragma: 'h'
+}])
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
   entry: __dirname + '/src/single-spa-examples.js',
@@ -35,8 +38,7 @@ module.exports = {
     },
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
       },
@@ -70,9 +72,15 @@ module.exports = {
         test: /svelte.+\.html$/,
         loader: 'svelte-loader',
       },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      }
     ],
   },
+
   plugins: [
+    new VueLoaderPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
       minChunks: module => module.context && module.context.indexOf('node_modules') !== -1
